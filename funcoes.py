@@ -51,3 +51,13 @@ def calcula_pontos_soma(dados):
     for d in dados:
         soma += d
     return soma
+
+def calcula_pontos_sequencia_baixa(dados):
+    for inicio in [1, 2, 3]:
+        tem = True
+        for i in range(inicio, inicio + 4):
+            if i not in dados:
+                tem = False
+        if tem:
+            return 15
+    return 0
