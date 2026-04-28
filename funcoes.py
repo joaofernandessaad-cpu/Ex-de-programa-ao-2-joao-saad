@@ -52,24 +52,24 @@ def calcula_pontos_soma(dados):
         soma += d
     return soma
 
-def calcula_pontos_sequencia_baixa(dados):
-    for inicio in [1, 2, 3]:
-        tem = True
-        for i in range(inicio, inicio + 4):
-            if i not in dados:
-                tem = False
-        if tem:
-            return 15
+def calcula_pontos_sequencia_alta(dados):
+    unicos = sorted(set(dados))
+    for i in range(len(unicos) - 4):
+        if unicos[i+4] - unicos[i] == 4:
+            return 30
     return 0
 
-def faz_jogada(dados, categoria, cartela_de_pontos):
-    pontos_simples = calcula_pontos_regra_simples(dados)
-    pontos_avancada = calcula_pontos_regra_avancada(dados)
+def calcula_pontos_full_house(dados):
+    contagem = {}
+    for d in dados:
+        contagem[d] = contagem.get(d, 0) + 1
     
-    if categoria in cartela_de_pontos['regra_avancada']:
-        cartela_de_pontos['regra_avancada'][categoria] = pontos_avancada[categoria]
-    else:
-        categoria_int = int(categoria)
-        cartela_de_pontos['regra_simples'][categoria_int] = pontos_simples[categoria_int]
+    valores = sorted(contagem.values())
     
-    return cartela_de_pontos
+    if valores == [2, 3]:
+        total = 0
+        for d in dados:
+            total += d
+        return total
+    
+    return 0
